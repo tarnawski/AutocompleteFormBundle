@@ -1,0 +1,7 @@
+get_tag:
+    path:     /tag/get
+    defaults: { _controller: AppBundle:Test:get }
+
+test:
+     path:   /
+     defaults:  { _controller: AppBundle:Test:index }

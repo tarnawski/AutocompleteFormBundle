@@ -1,0 +1,9 @@
+parameters:
+  tarnawski_autocomplete_form.type.tag_selector.class: Tarnawski\Bundle\AutocompleteFormBundle\Form\TagSelectType
+
+services:
+  tarnawski_autocomplete_form.type.tag_selector:
+    class: %tarnawski_autocomplete_form.type.tag_selector.class%
+    arguments: [@router]
+    tags:
+      - { name: form.type, alias: tag_selector }
