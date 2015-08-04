@@ -1,5 +1,5 @@
 {
-  "name": "TarnawskiAutocompleteForm",
+  "name": "ttarnawski/autocomplete-bundle",
   "type": "symfony-bundle",
   "description": "Add an autocomplete type to forms",
   "require": {
