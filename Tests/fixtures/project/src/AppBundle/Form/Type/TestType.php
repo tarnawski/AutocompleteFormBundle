@@ -17,7 +17,9 @@ class TestType extends AbstractType
          // 'endpoint_path_attr' => array('id' => 158)
             'endpoint_path_attr' => function(RouterInterface $router) {
                 return $router->generate('get_tag', array('id'=> 100));
-           }
+           },
+            'data_class' => 'AppBundle\Model\Tag',
+            'field_name' => 'name'
         ]);
         $builder->add('save', 'submit');
     }

@@ -2,7 +2,6 @@
 
 namespace Tarnawski\Bundle\AutocompleteFormBundle\Form;
 
-use Acme\BlogBundle\Form\DataTransformer\TagsToStringTransformerFactory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -31,11 +30,15 @@ class TagSelectType extends AbstractType
         ));
 
         $resolver->setRequired([
-            'endpoint_path'
+            'endpoint_path',
+            'data_class',
+            'field_name'
         ]);
 
         $resolver->setDefined('endpoint_path_attr');
         $resolver->setAllowedTypes('endpoint_path', ['string']);
+        $resolver->setAllowedTypes('data_class', ['string']);
+        $resolver->setAllowedTypes('field_name', ['string']);
         $resolver->setAllowedTypes('endpoint_path_attr', ['array', 'callable']);
     }
 

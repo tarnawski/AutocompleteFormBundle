@@ -12,6 +12,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Tarnawski\Bundle\AutocompleteFormBundle\TarnawskiAutocompleteFormBundle(),
             new AppBundle\AppBundle(),
+            new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 
         );
 
