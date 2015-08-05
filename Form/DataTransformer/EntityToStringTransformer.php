@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use AppBundle\Entity\Tag;
 
-class TagsToStringTransformer implements DataTransformerInterface
+class EntityToStringTransformer implements DataTransformerInterface
 {
     /**
      * @var ObjectManager

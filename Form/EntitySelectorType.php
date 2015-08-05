@@ -2,18 +2,16 @@
 
 namespace Tarnawski\Bundle\AutocompleteFormBundle\Form;
 
-use Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\TagsToStringTransformerFactory;
+use Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\EntityToStringTransformerFactory;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Routing\RouterInterface;
-use Tarnawski\Bundle\AutocompleteFormBundle\Form\TagSelectType;
 
-class TagSelectorType extends TagSelectType
+class EntitySelectorType extends EntitySelectType
 {
     private $factory;
 
-    public function __construct(RouterInterface $router, TagsToStringTransformerFactory $factory)
+    public function __construct(RouterInterface $router, EntityToStringTransformerFactory $factory)
     {
-
         parent::__construct($router);
         $this->factory = $factory;
     }
@@ -24,7 +22,6 @@ class TagSelectorType extends TagSelectType
         $builder->addModelTransformer($transformer);
     }
 
-
     public function getParent()
     {
         return 'text';
@@ -32,6 +29,6 @@ class TagSelectorType extends TagSelectType
 
     public function getName()
     {
-        return 'tag_selector';
+        return 'object_selector';
     }
 }

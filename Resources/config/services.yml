@@ -1,14 +1,14 @@
 parameters:
-  tarnawski_autocomplete_form.type.tag_selector.class: Tarnawski\Bundle\AutocompleteFormBundle\Form\TagSelectorType
+  tarnawski_autocomplete_form.type.object_selector.class: Tarnawski\Bundle\AutocompleteFormBundle\Form\EntitySelectorType
 
 services:
-  app.tag_transformer_factory:
-    class: Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\TagsToStringTransformerFactory
+  app.entity_transformer_factory:
+    class: Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\EntityToStringTransformerFactory
     arguments: ["@doctrine"]
     public: false
 
-  app.tarnawski_autocomplete_form.type.tag_selector:
-    class: %tarnawski_autocomplete_form.type.tag_selector.class%
-    arguments: ["@router", "@app.tag_transformer_factory"]
+  app.tarnawski_autocomplete_form.type.object_selector:
+    class: %tarnawski_autocomplete_form.type.object_selector.class%
+    arguments: ["@router", "@app.entity_transformer_factory"]
     tags:
-      - { name: form.type, alias: tag_selector }
+      - { name: form.type, alias: object_selector }

@@ -4,7 +4,7 @@ namespace Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 
-class TagsToStringTransformerFactory
+class EntityToStringTransformerFactory
 {
     /**
      * @var ManagerRegistry
@@ -18,7 +18,6 @@ class TagsToStringTransformerFactory
 
     public function create($om, $data_class, $field_name, $non_exist_callback = null)
     {
-        return new TagsToStringTransformer($this->registry->getManager($om),$data_class, $field_name, $non_exist_callback);
-
+        return new EntityToStringTransformer($this->registry->getManager($om),$data_class, $field_name, $non_exist_callback);
     }
 }

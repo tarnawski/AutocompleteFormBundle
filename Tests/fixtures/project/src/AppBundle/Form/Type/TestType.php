@@ -15,7 +15,7 @@ class TestType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('tags', 'tag_selector', [
+        $builder->add('tags', 'object_selector', [
             'endpoint_path' => 'get_tag',
          // 'endpoint_path_attr' => array('id' => 158)
             'endpoint_path_attr' => function(RouterInterface $router) {

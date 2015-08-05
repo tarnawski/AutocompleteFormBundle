@@ -3,15 +3,12 @@
 namespace Tarnawski\Bundle\AutocompleteFormBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\Exception\InvalidConfigurationException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
-use Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\TagsToStringTransformer;
 
-class TagSelectType extends AbstractType
+class EntitySelectType extends AbstractType
 {
     /***
      * @var RouterInterface
@@ -68,9 +65,6 @@ class TagSelectType extends AbstractType
         }
     }
 
-
-
-
     public function getParent()
     {
         return 'text';
@@ -78,6 +72,6 @@ class TagSelectType extends AbstractType
 
     public function getName()
     {
-        return 'tag_selector';
+        return 'object_selector';
     }
 }
