@@ -4,7 +4,7 @@ parameters:
 services:
   app.tag_transformer_factory:
     class: Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\TagsToStringTransformerFactory
-    arguments: ["@doctrine",]
+    arguments: ["@doctrine"]
     public: false
 
   app.tarnawski_autocomplete_form.type.tag_selector:

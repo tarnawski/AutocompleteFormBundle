@@ -3,11 +3,9 @@
 namespace Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer;
 
 use Doctrine\Common\Persistence\ObjectManager;
-
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
-use Symfony\Component\Form\Exception\TransformationFailedException;
-
+use AppBundle\Entity\Tag;
 
 class TagsToStringTransformer implements DataTransformerInterface
 {
@@ -17,16 +15,19 @@ class TagsToStringTransformer implements DataTransformerInterface
     private $om;
     private $data_class;
     private $fieldName;
+    private $non_exist_callback;
     /**
      * @param ObjectManager $om
      * @param $data_class
      * @param $field_name
+     * @param $non_exist_callback
      */
-    public function __construct(ObjectManager $om, $data_class, $field_name)
+    public function __construct(ObjectManager $om, $data_class, $field_name, $non_exist_callback)
     {
         $this->om = $om;
         $this->data_class = $data_class;
         $this->fieldName = $field_name;
+        $this->non_exist_callback = $non_exist_callback;
     }
 
     /**
@@ -58,22 +59,16 @@ class TagsToStringTransformer implements DataTransformerInterface
 
         $arrayOfTags = explode(",", $string);
         foreach ($arrayOfTags as $nameOfTag) {
-            $result = $this->om->getRepository($this->data_class)->findOneBy(array(
+            $entity = $this->om->getRepository($this->data_class)->findOneBy(array(
                 $this->fieldName => $nameOfTag
             ));
 
-            if (!$result) {
-                //Action when tag don't exist
-                $tag = new Tag();
-                $tag->setName($nameOfTag);
-                $tags->add($tag);
-
-
-            } else {
-                $tags->add($result);
-
+            if (!$entity && is_callable($this->non_exist_callback)) {
+                $callback = $this->non_exist_callback;
+                $entity = $callback($this->om, $nameOfTag);
             }
 
+            $tags->add($entity);
         }
 
         return $tags;

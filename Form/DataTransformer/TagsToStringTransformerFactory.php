@@ -16,9 +16,9 @@ class TagsToStringTransformerFactory
         $this->registry = $registry;
     }
 
-    public function create($om)
+    public function create($om, $data_class, $field_name, $non_exist_callback = null)
     {
-        return new TagsToStringTransformer($this->registry->getManager($om),'AppBundle\Model\Tag', 'field_name');
+        return new TagsToStringTransformer($this->registry->getManager($om),$data_class, $field_name, $non_exist_callback);
 
     }
 }

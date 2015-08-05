@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\Exception\InvalidConfigurationException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
+use Tarnawski\Bundle\AutocompleteFormBundle\Form\DataTransformer\TagsToStringTransformer;
 
 class TagSelectType extends AbstractType
 {
@@ -32,14 +33,18 @@ class TagSelectType extends AbstractType
         $resolver->setRequired([
             'endpoint_path',
             'data_class',
-            'field_name'
+            'field_name',
         ]);
+
+        $resolver->setDefault('non_exist_callback', null);
 
         $resolver->setDefined('endpoint_path_attr');
         $resolver->setAllowedTypes('endpoint_path', ['string']);
         $resolver->setAllowedTypes('data_class', ['string']);
         $resolver->setAllowedTypes('field_name', ['string']);
         $resolver->setAllowedTypes('endpoint_path_attr', ['array', 'callable']);
+        $resolver->setAllowedTypes('non_exist_callback', ['callable']);
+
     }
 
     /**
@@ -62,6 +67,9 @@ class TagSelectType extends AbstractType
             $view->vars['endpoint_path']=$options['endpoint_path'];
         }
     }
+
+
+
 
     public function getParent()
     {
