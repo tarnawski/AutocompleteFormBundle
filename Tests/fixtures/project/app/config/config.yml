@@ -16,7 +16,7 @@ framework:
         storage_id:     session.storage.filesystem
 
 tarnawski_autocomplete_form:
-    tag_selector_class: Tarnawski\Bundle\AutocompleteFormBundle\Form\TagSelectType
+    object_selector_class: Tarnawski\Bundle\AutocompleteFormBundle\Form\EntitySelectType
 
 doctrine:
     dbal:

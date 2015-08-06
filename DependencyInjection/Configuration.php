@@ -21,8 +21,8 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('tarnawski_autocomplete_form');
 
         $rootNode->children()
-            ->scalarNode('tag_selector_class')
-            ->defaultValue('Tarnawski\Bundle\AutocompleteFormBundle\Form\TagSelectType')
+            ->scalarNode('object_selector_class')
+            ->defaultValue('Tarnawski\Bundle\AutocompleteFormBundle\Form\EntitySelectType')
         ;
 
         // Here you should define the parameters that are allowed to

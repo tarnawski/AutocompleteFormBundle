@@ -1,5 +1,5 @@
 {% extends '::base.html.twig' %}
-{% block tag_selector_widget %}
+{% block object_selector_widget %}
 
     <script>
         $(function() {
@@ -54,4 +54,4 @@
 
     {% set type = type|default('string') %}
     {{ block('form_widget_simple') }}
-{% endblock tag_selector_widget %}
+{% endblock object_selector_widget %}
