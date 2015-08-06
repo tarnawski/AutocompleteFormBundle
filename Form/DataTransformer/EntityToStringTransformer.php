@@ -59,6 +59,7 @@ class EntityToStringTransformer implements DataTransformerInterface
 
         $arrayOfTags = explode(",", $string);
         foreach ($arrayOfTags as $nameOfTag) {
+            $nameOfTag = trim($nameOfTag, ' ');
             $entity = $this->om->getRepository($this->data_class)->findOneBy(array(
                 $this->fieldName => $nameOfTag
             ));
@@ -66,9 +67,9 @@ class EntityToStringTransformer implements DataTransformerInterface
             if (!$entity && is_callable($this->non_exist_callback)) {
                 $callback = $this->non_exist_callback;
                 $entity = $callback($this->om, $nameOfTag);
+            }else{
+                $tags->add($entity);
             }
-
-            $tags->add($entity);
         }
 
         return $tags;
