@@ -18,7 +18,7 @@ class EntitySelectorType extends EntitySelectType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $transformer = $this->factory->create($options['om'], $options['data_class'], $options['field_name'], $options['non_exist_callback']);
+        $transformer = $this->factory->create($options['om'], $options['entity_class'], $options['field_name'], $options['non_exist_callback']);
         $builder->addModelTransformer($transformer);
     }
 

@@ -22,10 +22,10 @@ class EntityToStringTransformer implements DataTransformerInterface
      * @param $field_name
      * @param $non_exist_callback
      */
-    public function __construct(ObjectManager $om, $data_class, $field_name, $non_exist_callback)
+    public function __construct(ObjectManager $om, $entity_class, $field_name, $non_exist_callback)
     {
         $this->om = $om;
-        $this->data_class = $data_class;
+        $this->entity_class = $entity_class;
         $this->fieldName = $field_name;
         $this->non_exist_callback = $non_exist_callback;
     }
@@ -60,7 +60,7 @@ class EntityToStringTransformer implements DataTransformerInterface
         $arrayOfTags = explode(",", $string);
         foreach ($arrayOfTags as $nameOfTag) {
             $nameOfTag = trim($nameOfTag, ' ');
-            $entity = $this->om->getRepository($this->data_class)->findOneBy(array(
+            $entity = $this->om->getRepository($this->entity_class)->findOneBy(array(
                 $this->fieldName => $nameOfTag
             ));
 

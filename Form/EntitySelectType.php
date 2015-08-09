@@ -29,7 +29,7 @@ class EntitySelectType extends AbstractType
 
         $resolver->setRequired([
             'endpoint_path',
-            'data_class',
+            'entity_class',
             'field_name',
         ]);
 
@@ -37,7 +37,7 @@ class EntitySelectType extends AbstractType
 
         $resolver->setDefined('endpoint_path_attr');
         $resolver->setAllowedTypes('endpoint_path', ['string']);
-        $resolver->setAllowedTypes('data_class', ['string']);
+        $resolver->setAllowedTypes('entity_class', ['string']);
         $resolver->setAllowedTypes('field_name', ['string']);
         $resolver->setAllowedTypes('endpoint_path_attr', ['array', 'callable']);
         $resolver->setAllowedTypes('non_exist_callback', ['callable']);

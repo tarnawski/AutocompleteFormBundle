@@ -16,8 +16,8 @@ class EntityToStringTransformerFactory
         $this->registry = $registry;
     }
 
-    public function create($om, $data_class, $field_name, $non_exist_callback = null)
+    public function create($om, $entity_class, $field_name, $non_exist_callback = null)
     {
-        return new EntityToStringTransformer($this->registry->getManager($om),$data_class, $field_name, $non_exist_callback);
+        return new EntityToStringTransformer($this->registry->getManager($om),$entity_class, $field_name, $non_exist_callback);
     }
 }
