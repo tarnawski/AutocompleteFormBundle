@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Tag;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\Type\TestType;
@@ -11,7 +12,11 @@ class TestController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $form = $this->createForm(new TestType());
+        $tag = new Tag();
+        $tag->setName(1);
+        $form = $this->createForm(new TestType(), array(
+            $tag
+        ));
         $form->handleRequest($request);
 
         return $this->render('AppBundle:Test:index.html.twig', array(

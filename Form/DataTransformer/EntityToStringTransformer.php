@@ -6,6 +6,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\DataTransformerInterface;
 use AppBundle\Entity\Tag;
+use Symfony\Component\PropertyAccess\PropertyAccess;
+
 
 class EntityToStringTransformer implements DataTransformerInterface
 {
@@ -13,33 +15,39 @@ class EntityToStringTransformer implements DataTransformerInterface
      * @var ObjectManager
      */
     private $om;
-    private $data_class;
+    private $entity_class;
     private $fieldName;
     private $non_exist_callback;
     /**
      * @param ObjectManager $om
-     * @param $data_class
+     * @param $entity_class
      * @param $field_name
      * @param $non_exist_callback
      */
     public function __construct(ObjectManager $om, $entity_class, $field_name, $non_exist_callback)
     {
+        // Object Manager
         $this->om = $om;
+        // Name of class where looking for object
         $this->entity_class = $entity_class;
+        // Name of field on which we search
         $this->fieldName = $field_name;
+        // Action whew object not found
         $this->non_exist_callback = $non_exist_callback;
     }
 
     /**
-     * @param Tag collection $tags
-     * @return String
+     * @param mixed $rows
+     * @return string
      */
-    public function transform($tags)
+    public function transform($rows)
     {
+        $accessor = PropertyAccess::createPropertyAccessor();
         $list = '';
-        if ($tags) {
-            foreach ($tags as $tag) {
-                $list = $tag->getName() . ', ' . $list;
+        if ($rows) {
+            foreach ($rows as $row) {
+
+                $list = $accessor->getValue($row, $row->getName()) . ', ' . $list;
             }
         }
 
@@ -47,31 +55,28 @@ class EntityToStringTransformer implements DataTransformerInterface
     }
 
     /**
-     *
-     * @param string $string String to transform
-     *
-     * @return Tag $tag
-     *
+     * @param mixed $string
+     * @return \Doctrine\Common\Collections\ArrayCollection
      */
     public function reverseTransform($string)
     {
-        $tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $rows = new \Doctrine\Common\Collections\ArrayCollection();
 
-        $arrayOfTags = explode(",", $string);
-        foreach ($arrayOfTags as $nameOfTag) {
-            $nameOfTag = trim($nameOfTag, ' ');
+        $arrayOfRows = explode(",", $string);
+        foreach ($arrayOfRows as $nameOfRow) {
+            $nameOfRow = trim($nameOfRow, ' ');
             $entity = $this->om->getRepository($this->entity_class)->findOneBy(array(
-                $this->fieldName => $nameOfTag
+                $this->fieldName => $nameOfRow
             ));
 
             if (!$entity && is_callable($this->non_exist_callback)) {
                 $callback = $this->non_exist_callback;
-                $entity = $callback($this->om, $nameOfTag);
+                $entity = $callback($this->om, $nameOfRow);
             }else{
-                $tags->add($entity);
+                $rows->add($entity);
             }
         }
 
-        return $tags;
+        return $rows;
     }
 }
