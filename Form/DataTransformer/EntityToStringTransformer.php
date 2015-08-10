@@ -18,6 +18,7 @@ class EntityToStringTransformer implements DataTransformerInterface
     private $entity_class;
     private $fieldName;
     private $non_exist_callback;
+
     /**
      * @param ObjectManager $om
      * @param $entity_class
@@ -26,13 +27,9 @@ class EntityToStringTransformer implements DataTransformerInterface
      */
     public function __construct(ObjectManager $om, $entity_class, $field_name, $non_exist_callback)
     {
-        // Object Manager
         $this->om = $om;
-        // Name of class where looking for object
         $this->entity_class = $entity_class;
-        // Name of field on which we search
         $this->fieldName = $field_name;
-        // Action whew object not found
         $this->non_exist_callback = $non_exist_callback;
     }
 
@@ -43,14 +40,13 @@ class EntityToStringTransformer implements DataTransformerInterface
     public function transform($rows)
     {
         $accessor = PropertyAccess::createPropertyAccessor();
-        $list = '';
-        $arrayValueOfRows=[];
+        $arrayValueOfRows = [];
         if ($rows) {
             foreach ($rows as $row) {
                 $arrayValueOfRows[] = $accessor->getValue($row, $this->fieldName);
             }
-            $list = implode(", ", $arrayValueOfRows);
         }
+        $list = implode(", ", $arrayValueOfRows);
 
         return $list;
     }
@@ -73,9 +69,9 @@ class EntityToStringTransformer implements DataTransformerInterface
             if (!$entity && is_callable($this->non_exist_callback)) {
                 $callback = $this->non_exist_callback;
                 $entity = $callback($this->om, $nameOfRow);
-            }else{
-                $rows->add($entity);
             }
+
+            $rows->add($entity);
         }
 
         return $rows;
