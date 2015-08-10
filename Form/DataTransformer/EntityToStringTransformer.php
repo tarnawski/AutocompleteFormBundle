@@ -44,10 +44,12 @@ class EntityToStringTransformer implements DataTransformerInterface
     {
         $accessor = PropertyAccess::createPropertyAccessor();
         $list = '';
+        $arrayValueOfRows=[];
         if ($rows) {
             foreach ($rows as $row) {
-                $list = $accessor->getValue($row, $this->fieldName) . ', ' . $list;
+                $arrayValueOfRows[] = $accessor->getValue($row, $this->fieldName);
             }
+            $list = implode(", ", $arrayValueOfRows);
         }
 
         return $list;
