@@ -46,8 +46,7 @@ class EntityToStringTransformer implements DataTransformerInterface
         $list = '';
         if ($rows) {
             foreach ($rows as $row) {
-
-                $list = $accessor->getValue($row, $row->getName()) . ', ' . $list;
+                $list = $accessor->getValue($row, $this->fieldName) . ', ' . $list;
             }
         }
 
